@@ -24,7 +24,7 @@ async function calcTotal() {
     intro.innerText = 'Preço total: ';
     intro.className = 'intro-total';
     total = document.createElement('span');
-    total.innerText = soma;
+    total.innerText = soma.toFixed(2);
     total.className = 'total-price';
     intro.appendChild(total);
     document.querySelector('.cart').appendChild(intro); 
