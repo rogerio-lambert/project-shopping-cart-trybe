@@ -108,7 +108,8 @@ async function loadProducts() {
     .then((result) => result.results);
   loadText.parentElement.removeChild(loadText);
   recoveryData.forEach((computer) => {
-    const computerObject = { sku: computer.id, name: computer.title, image: computer.thumbnail };
+    const image = `https://http2.mlstatic.com/D_NQ_NP_${computer.thumbnail_id}-O.webp`;
+    const computerObject = { sku: computer.id, name: computer.title, image };
     document.querySelector('.items').appendChild(createProductItemElement(computerObject));
   });
 }
@@ -124,7 +125,7 @@ const emptyCartList = () => {
 // o lister no botão de esvaziar o carrinho por exemplo, não tem como ser criado antes da pagina ser carregada, assim como o
 // carregamento dos produtos e recuperação das informações arquivadas no browser.
 window.onload = function onload() { 
-  document.querySelector('.empty-cart').addEventListener('click', emptyCartList);
+  loadProducts();
   const listCart = document.querySelector('.cart__items');
   const listContent = localStorage.getItem('cartList');
   if (listContent !== null) listCart.innerHTML = listContent;
@@ -132,6 +133,6 @@ window.onload = function onload() {
   for (let index = 0; index < liCart.length; index += 1) {
     liCart[index].addEventListener('click', cartItemClickListener);
   }
-  calcTotal();
-  loadProducts();
+  calcTotal(); 
+  document.querySelector('.empty-cart').addEventListener('click', emptyCartList);
 };
